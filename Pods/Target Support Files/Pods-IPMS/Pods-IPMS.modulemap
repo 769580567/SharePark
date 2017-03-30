@@ -1,0 +1,6 @@
+framework module Pods_IPMS {
+  umbrella header "Pods-IPMS-umbrella.h"
+
+  export *
+  module * { export * }
+}
