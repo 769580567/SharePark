@@ -13,12 +13,15 @@ import AVOSCloud
 class LeaseViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
     lazy var tableView = UITableView()
-    
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+//        let query = AVQuery(className: "Test")
+//        query.whereKey("userID", equalTo: AVUser.current()?.objectId)
+//        query.findObjectsInBackground { (records: [Any]?, error: Error?) in
+//            
+//        }
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.brown.withAlphaComponent(0.7), NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
         
         self.automaticallyAdjustsScrollViewInsets = false
@@ -102,7 +105,14 @@ class LeaseViewController: UIViewController,UITableViewDelegate,UITableViewDataS
 //        query.order(byDescending: "createdAt")
         
     }
-    
+    //转换时间格式
+    func formateTime() -> String {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        let timeString = formatter.string(from: date)
+        return timeString
+    }
     
 //界面控件布局设置
     func setupInterface() {

@@ -6,4 +6,5 @@ pod 'SnapKit'
 pod ‘JVFloatLabeledTextField’
 pod 'AVOSCloud' 
 pod 'SDWebImage'
+pod 'MJRefresh'
 end

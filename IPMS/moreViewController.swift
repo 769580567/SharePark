@@ -12,12 +12,27 @@ import SDWebImage
 
 class moreViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
-    
+    lazy var user: AVUser = {
+        let user = AVUser.current()
+        return user!
+    }()
+
     lazy var tableView = UITableView()
     lazy var backgroundImage = UIImageView()
-    lazy var nameLabel = UILabel()
+    lazy var nameLabel:UILabel = {
+        let nameLabel = UILabel()
+       
+        nameLabel.textColor = UIColor.white
+        nameLabel.textAlignment = .center
+
+        return nameLabel
+    }()
+    
     lazy var coverImage:UIImageView = {
         let coverImage = UIImageView()
+        coverImage.layer.cornerRadius = 50
+        coverImage.layer.masksToBounds = true
+        
         
         return coverImage
     }()
@@ -45,10 +60,22 @@ class moreViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.tabBarController?.tabBar.isHidden = false
         
-
+        freshData()
+      
         
     }
-    
+    func freshData(){
+        nameLabel.text = self.user.username
+        
+        if let avatarAddress = self.user["avatarImage"] as? String {
+            let avatatUrl = URL(string: avatarAddress)
+            coverImage.sd_setImage(with: avatatUrl, placeholderImage: UIImage(named: "Avatar"))
+        }
+        else {
+            coverImage.image = UIImage(named: "Avatar")
+        }
+
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return 4
@@ -157,18 +184,13 @@ class moreViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             make.height.equalTo(SCREEN_HEIGHT/3 - 20)
         }
 
-        coverImage.image = UIImage(named: "Avatar")
-        coverImage.layer.cornerRadius = 50
-        coverImage.layer.masksToBounds = true
+        
         coverImage.snp.makeConstraints { (make) in
             make.top.equalTo(self.view).offset(25)
             make.centerX.equalTo(self.view)
             make.width.height.equalTo(SCREEN_HEIGHT/3 - 70)
         }
         
-        nameLabel.text = "你的名字"
-        nameLabel.textColor = UIColor.white
-        nameLabel.textAlignment = .center
         nameLabel.snp.makeConstraints { (make) in
             make.top.equalTo(coverImage.snp.bottom).offset(10)
             make.centerX.equalTo(self.view)

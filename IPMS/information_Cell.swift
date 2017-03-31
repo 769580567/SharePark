@@ -20,7 +20,7 @@ class information_Cell: UITableViewCell {
     lazy var secondLabel:UILabel = {
         let secondLabel = UILabel()
         secondLabel.font = UIFont.systemFont(ofSize: 20)
-        secondLabel.textColor = UIColor.red.withAlphaComponent(0.5)
+        secondLabel.textColor = UIColor.red.withAlphaComponent(0.3)
         return secondLabel
     }()
     

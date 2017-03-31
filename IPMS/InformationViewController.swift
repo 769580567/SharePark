@@ -7,15 +7,30 @@
 //
 
 import UIKit
+import SDWebImage
+import AVOSCloud
 
 class InformationViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+    
+    lazy var user: AVUser = {
+        let user = AVUser.current()
+        return user!
+    }()
 
     //界面控件的初始化
     lazy var coverImage:UIImageView = {
         let coverImage = UIImageView()
         coverImage.layer.cornerRadius = 25
         coverImage.layer.masksToBounds = true
-        coverImage.image = UIImage(named: "Avatar")
+        
+        if let avatarAddress = self.user["avatarImage"] as? String {
+            let avatatUrl = URL(string: avatarAddress)
+            coverImage.sd_setImage(with: avatatUrl, placeholderImage: UIImage(named: "Avatar"))
+        }
+        else {
+            coverImage.image = UIImage(named: "Avatar")
+        }
+        
         return coverImage
     }()
     lazy var coverControl:UIControl = {
@@ -36,7 +51,8 @@ class InformationViewController: UIViewController,UITableViewDataSource,UITableV
     }()
     
     
-    let dataAttay = ["我的名字:","我的车位:","我的余额:","我的电话:","我的邮箱:","修改密码:"]
+    let dataArray = ["我的名字:","我的车位:","我的余额:","我的电话:","我的邮箱:","修改密码"]
+    var dataArray2 = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +73,23 @@ class InformationViewController: UIViewController,UITableViewDataSource,UITableV
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.tabBarController?.tabBar.isHidden = true
+        
+        dataArray2.append(self.user.username!)
+        dataArray2.append("\(self.user["carNumber"]!)")
+        dataArray2.append("\(self.user["balance"]!) 元")
+        dataArray2.append(self.user.mobilePhoneNumber!)
+        dataArray2.append(self.user.email!)
+        
+        freshData()
+    }
+    
+    func freshData(){
+        dataArray2[0] = self.user.username!
+        dataArray2[1] = "\(self.user["carNumber"]!)"
+        dataArray2[2] = "\(self.user["balance"]!) 元"
+        dataArray2[3] = self.user.mobilePhoneNumber!
+        dataArray2[4] = self.user.email!
+        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -75,8 +108,24 @@ class InformationViewController: UIViewController,UITableViewDataSource,UITableV
     //cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? detailTableView_Cell
-        cell?.firstLabel.text = dataAttay[indexPath.row]
-        cell?.secondLabel.text = "内容"
+        
+        cell?.firstLabel.text = dataArray[indexPath.row]
+        if indexPath.row == 5{
+            cell?.firstLabel.textAlignment = .center
+            cell?.firstLabel.snp.remakeConstraints({ (make) in
+                make.top.equalTo(cell!.contentView).offset(5)
+                make.leading.equalTo(cell!.contentView).offset(15)
+                make.trailing.equalTo(cell!.contentView).offset(-15)
+            })
+            cell?.secondLabel.snp.remakeConstraints({ (make) in
+                make.leading.top.bottom.equalTo(cell!.contentView)
+                make.width.equalTo(0)
+            })
+        }else {
+//            cell?.secondLabel.text = "content"
+            cell?.secondLabel.text = dataArray2[indexPath.row]
+        }
+        
         cell?.backgroundColor = UIColor.clear
         
         return cell!
@@ -86,6 +135,7 @@ class InformationViewController: UIViewController,UITableViewDataSource,UITableV
             
         }else {
             let vc = ChangeInformationViewController()
+            vc.indexPath = indexPath.row
             self.navigationController?.pushViewController(vc, animated: true)
             self.tableView.deselectRow(at: indexPath, animated: true)
         }
@@ -157,8 +207,14 @@ extension InformationViewController:UIImagePickerControllerDelegate,UINavigation
         if let pickImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             self.coverImage.image = pickImage
             
-//            let compressImage = pickImage.compressedImage()
-//            let data = UIImagePNGRepresentation(compressImage)
+            let compressImage = pickImage.compressedImage()
+            let data = UIImagePNGRepresentation(compressImage)
+            
+            let file = AVFile(name: "avatar.png", data: data!)
+            file.saveInBackground({ (success: Bool, error: Error?) in
+                self.user.setObject(file.url!, forKey: "avatarImage")
+                self.user.save()
+            })
             
         }
         dismiss(animated: true, completion: nil)
@@ -174,7 +230,8 @@ extension UIImage{
         let newSize = CGSize(width: size.width/scaleFactor, height: size.height/scaleFactor)
         
         UIGraphicsBeginImageContextWithOptions(newSize, true, 1)
-        self.draw(at: .zero)
+        self.draw(in: CGRect(origin: .zero, size: newSize))
+        
         let compressdImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsPopContext()
         

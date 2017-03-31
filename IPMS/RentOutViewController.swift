@@ -12,6 +12,11 @@ import AVOSCloud
 
 class RentOutViewController: UIViewController {
 
+    lazy var user: AVUser = {
+        let user = AVUser.current()
+        return user!
+    }()
+    
     var logoHeightConstraint: Constraint!
     var selectedButton:UIButton!
 //创建界面控件
@@ -74,6 +79,7 @@ class RentOutViewController: UIViewController {
         let inputView = ETInputView.createInputView(icon: UIImage(named: "icon_money"), placeholder: "请输入租用时薪")
         inputView.layer.cornerRadius = 20
         inputView.imageView.layer.cornerRadius = 20
+        inputView.textField.keyboardType = .decimalPad
         return inputView
     }()
     lazy var RentOutButton: UIButton = {
@@ -98,11 +104,19 @@ class RentOutViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(RentOutViewController.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(RentOutViewController.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
+
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        if (user["carNumber"] as! Int) == 0 || (user["type"] as! Int) == 1{
+            self.RentOutButton.isEnabled = false
+            self.RentOutButton.backgroundColor = UIColor.lightGray
+        }
     }
     
     deinit {
@@ -165,28 +179,50 @@ class RentOutViewController: UIViewController {
             make.top.equalTo(timePicker.snp.bottom)
         }
     }
+    
+    func formatStringToDate(dateString: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter.date(from: dateString)
+    }
+    
     //发布共享车位按钮事件
     func rentOut(sender:UIButton) {
         
-//        let time = timeInputView.textField.text
-        let cost = costInputView.textField.text
+        let time1 = beginTimeButton.titleLabel?.text
+        let time2 = endTimeButton.titleLabel?.text
         
-//        if time != "" && cost != "" {
-//            
-//        }else {
-//            let alert1 = UIAlertController(title: "提示", message: "请完善信息", preferredStyle: .alert)
-//            alert1.addAction(UIAlertAction(title: "确定", style: .default, handler: { (action) in
-//                
-//            }))
-//            
-//            present(alert1, animated: true, completion: {
-//                
-//            })
-//        }
         
+        guard let beginTime = formatStringToDate(dateString: time1!),
+            let endTime = formatStringToDate(dateString: time2!),
+            let cost = costInputView.textField.text,
+            !cost.isEmpty,
+            time1! <= time2!
+        else {
+                self.showAlertView(isSuccess: false)
+            
+                return
+            }
+        
+        let dict = ["carNumber": user["carNumber"]!, "wage": Int(cost)!, "cost": 0, "type": 1, "beginDate": time1!, "endDate": time2!] as [String : Any]
+        DataTable.pushRecordInBack(dict as NSDictionary)
+        
+        self.showAlertView(isSuccess: true)
+        self.RentOutButton.isEnabled = false
     }
     
-    
+    func showAlertView(isSuccess: Bool) {
+        var message = "请完善信息"
+        if isSuccess {
+            message = "发布成功"
+        }
+        let alert1 = UIAlertController(title: "提示", message: message, preferredStyle: .alert)
+        alert1.addAction(UIAlertAction(title: "确定", style: .default, handler: { (action) in
+            
+        }))
+        present(alert1, animated: true, completion: {
+        })
+    }
     
     func chooseTimeAction(sender: UIButton) {
         selectedButton = sender

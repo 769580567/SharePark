@@ -158,6 +158,9 @@ class RegisterViewController: UIViewController {
         user.mobilePhoneNumber = phone
         user.password = password
         user.email = email
+        user["carNumber"] = 0
+        user["balance"] = 0
+        user["type"] = 0
         
         let alert1 = UIAlertController(title: "提示", message: "请先完善信息", preferredStyle: .alert)
         alert1.addAction(UIAlertAction(title: "确定", style: .default, handler: { (action) in
@@ -186,6 +189,25 @@ class RegisterViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { (action) in
             let textfield = alert.textFields?.first
+            
+            
+           AVOSCloud.verifySmsCode((textfield?.text!)!, mobilePhoneNumber: self.numberInputView.textField.text!, callback: { (verify, error) in
+            if verify {
+                
+                user.signUpInBackground({ (result, error) in
+                    if result {
+                        ProgressHUD.showSuccess("注册成功")
+                        self.dismiss(animated: true, completion: nil)
+                    }else{
+                        ProgressHUD.showError("注册失败")
+                    }
+                })
+                
+            }else{
+                ProgressHUD.showError("验证码错误")
+            }
+            
+           })
 
                     //检验验证码
 //            AVOSCloud.requestSmsCode(withPhoneNumber: self.numberInputView.textField.text!, templateName: textfield?.text!, variables: , callback: { (verify, error) in
