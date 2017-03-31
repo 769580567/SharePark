@@ -8,7 +8,7 @@
 
 import UIKit
 import SnapKit
-import LeanCloud
+import AVOSCloud
 
 class ETSignInViewController: UIViewController {
 
@@ -176,9 +176,9 @@ class ETSignInViewController: UIViewController {
     func signInAction(sender: UIButton) {
         //debugLog()
         
-             LCUser.logIn(username: self.accountInputView.textField.text!, password: self.passwordInputView.textField.text!) { (result) in
+        AVUser.logInWithUsername(inBackground: self.accountInputView.textField.text!, password: self.passwordInputView.textField.text!) { (user, error) in
             
-            if result.isSuccess{
+            if user != nil{
          
                 let story = UIStoryboard(name: "Main", bundle: nil)
                 let vc = story.instantiateViewController(withIdentifier: "Main")
@@ -186,16 +186,17 @@ class ETSignInViewController: UIViewController {
                 self.present(vc, animated: true, completion: nil)
                 
             }else{
-                if result.error?.code == 210{
+//                if == 210{
+//                }
                     ProgressHUD.showError("用户名或密码错误")
-                }else if result.error?.code == 211 {
-                    ProgressHUD.showError("不存在该用户")
-
-                }else if result.error?.code == 1{
-                    ProgressHUD.showError("操作频繁")
-                }else{
+//                }else if error?.code == 211 {
+//                    ProgressHUD.showError("不存在该用户")
+//
+//                }else if error?.code == 1{
+//                    ProgressHUD.showError("操作频繁")
+//                }else{
                     ProgressHUD.showError("登录失败")
-                }
+//                }
             }
         }
     }

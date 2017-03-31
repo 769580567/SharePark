@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import LeanCloud
 import SnapKit
+import AVOSCloud
 
 class LeaseViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
@@ -23,9 +23,7 @@ class LeaseViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         
         self.automaticallyAdjustsScrollViewInsets = false
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
-        let item = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(LeaseViewController.fresh(sender:)))
-        item.image = UIImage(named: "icon_fresh")
-        self.navigationItem.rightBarButtonItem = item
+         self.navigationItem.rightBarButtonItem =  UIBarButtonItem(image: UIImage(named:"icon_fresh"), style: .plain, target: self, action: #selector(LeaseViewController.fresh(sender:)))
         
         self.view.backgroundColor = UIColor(red: 248/255, green: 255/255, blue: 255/255, alpha: 1.0)
         
@@ -99,6 +97,9 @@ class LeaseViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
     //刷新按钮
     func fresh(sender:UIBarButtonItem)  {
+        
+//        let query = AVQuery(className: "records")
+//        query.order(byDescending: "createdAt")
         
     }
     

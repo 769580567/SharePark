@@ -26,9 +26,7 @@ class FeedbackViewController: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         self.title = "问题反馈"
         
-        let leftitem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(FeedbackViewController.back(sender:)))
-        leftitem.image = UIImage(named:"icon_back")
-        self.navigationItem.leftBarButtonItem = leftitem
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"icon_back"), style: .plain, target: self, action: #selector(FeedbackViewController.back(sender:)))
     }
     
     override func viewWillAppear(_ animated: Bool) {

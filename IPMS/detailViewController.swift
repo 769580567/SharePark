@@ -33,9 +33,7 @@ class detailViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.title = "用户信息"
         self.view.backgroundColor = UIColor(red: 242/255, green: 255/255, blue: 255/255, alpha: 1.0)
 
-        let leftitem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(detailViewController.back(sender:)))
-        leftitem.image = UIImage(named:"icon_back")
-        self.navigationItem.leftBarButtonItem = leftitem
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"icon_back"), style: .plain, target: self, action: #selector(detailViewController.back(sender:)))
         
         self.tableView.separatorStyle = .none
         

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0D38A2F14AC051641A92E21D3E90EDA5"
+               BlueprintIdentifier = "FDD9CB8269F5B4F3CBB95CD05F3B0B70"
                BuildableName = "Pods_IPMS.framework"
                BlueprintName = "Pods-IPMS"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0D38A2F14AC051641A92E21D3E90EDA5"
+            BlueprintIdentifier = "FDD9CB8269F5B4F3CBB95CD05F3B0B70"
             BuildableName = "Pods_IPMS.framework"
             BlueprintName = "Pods-IPMS"
             ReferencedContainer = "container:Pods.xcodeproj">

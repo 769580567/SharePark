@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import LeanCloud
 
 class MainViewController: UIViewController {
 

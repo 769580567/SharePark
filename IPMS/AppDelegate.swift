@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import LeanCloud
+import AVOSCloud
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,13 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        LeanCloud.initialize(applicationID: "Haji2FT5KAzQcaMoGRp2hG5b-gzGzoHsz", applicationKey: "gbOlTGy63jH7l3DVvefP88Pm")
-        
+        AVOSCloud.setApplicationId("Haji2FT5KAzQcaMoGRp2hG5b-gzGzoHsz", clientKey: "gbOlTGy63jH7l3DVvefP88Pm")
        
-//        if LCUser.current == nil {
-//                        let story = UIStoryboard(name: "Login", bundle: nil)
-//                        let loginVC = story.instantiateViewController(withIdentifier: "Login")
-//                        self.window?.rootViewController = loginVC
+//        if AVUser.current() == nil {
+//            let story = UIStoryboard(name: "Login", bundle: nil)
+//            let loginVC = story.instantiateViewController(withIdentifier: "Login")
+//            self.window?.rootViewController = loginVC
+//            
 //        }else {
 //            let story = UIStoryboard(name: "Main", bundle: nil)
 //            let loginVC = story.instantiateViewController(withIdentifier: "Main")

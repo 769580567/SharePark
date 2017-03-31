@@ -7,19 +7,20 @@
 //
 
 import UIKit
-import LeanCloud
+import AVOSCloud
+import SDWebImage
 
 class moreViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
-//    var tableView:UITableView?
-//    var image:UIImageView!
-//    var nameLabel:UILabel!
-//    var cover:UIImageView!
     
     lazy var tableView = UITableView()
     lazy var backgroundImage = UIImageView()
     lazy var nameLabel = UILabel()
-    lazy var coverImage = UIImageView()
+    lazy var coverImage:UIImageView = {
+        let coverImage = UIImageView()
+        
+        return coverImage
+    }()
 
 //cell数组数据
     var nameArray:[[DataArray]] =
@@ -43,6 +44,9 @@ class moreViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.tabBarController?.tabBar.isHidden = false
+        
+
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -127,7 +131,7 @@ class moreViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             break
         case 3:
             self.tabBarController?.tabBar.isHidden = true
-            LCUser.logOut()
+            AVUser.logOut()
             let story = UIStoryboard(name: "Login", bundle: nil)
             vc = story.instantiateViewController(withIdentifier: "Login")
             break

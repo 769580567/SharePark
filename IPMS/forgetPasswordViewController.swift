@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import LeanCloud
+import AVOSCloud
 import SnapKit
 
 class forgetPasswordViewController: UIViewController {
@@ -130,23 +130,23 @@ class forgetPasswordViewController: UIViewController {
         }))
         
         if self.numberInputView.textField.text != "" {
-            LCUser.requestPasswordReset(email: self.numberInputView.textField.text!) { (result) in
-                if result.isSuccess{
+            AVUser.requestEmailVerify(self.numberInputView.textField.text!, with: { (result, error) in
+                if result{
                     ProgressHUD.showSuccess("已发送，请验证邮箱")
                     self.dismiss(animated: true, completion: {
                         
                     })
                 }else {
                     //不同的错误码对应不同的错误提示
-                    if result.error?.code == 125 {
-                        ProgressHUD.showError("邮箱不合法")
-                    }else if result.error?.code == 205 {
-                        ProgressHUD.showError("此邮箱并未注册过")
-                    }else {
-                        ProgressHUD.showError("注册失败")
-                    }
+//                    if error == 125 {
+//                        ProgressHUD.showError("邮箱不合法")
+//                    }else if error?.code == 205 {
+//                        ProgressHUD.showError("此邮箱并未注册过")
+//                    }else {
+//                        ProgressHUD.showError("注册失败")
+//                    }
                 }
-            }
+            })
         }else {
             present(alert1, animated: true, completion: { 
                 

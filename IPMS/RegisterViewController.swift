@@ -6,7 +6,7 @@
 
 
 import UIKit
-import LeanCloud
+import AVOSCloud
 import SnapKit
 
 class RegisterViewController: UIViewController {
@@ -149,15 +149,15 @@ class RegisterViewController: UIViewController {
     
     func GetNewAccount(sender: UIButton) {
         //debugLog()
-        let user = LCUser()
+        let user = AVUser()
         let userName = self.accountInputView.textField.text
         let phone = self.numberInputView.textField.text
         let password = self.passwordInputView.textField.text
         let email = self.emailInputView.textField.text
-        user.username = LCString(userName!)
-        user.mobilePhoneNumber = LCString(phone!)
-        user.password = LCString(password!)
-        user.email = LCString(email!)
+        user.username = userName
+        user.mobilePhoneNumber = phone
+        user.password = password
+        user.email = email
         
         let alert1 = UIAlertController(title: "提示", message: "请先完善信息", preferredStyle: .alert)
         alert1.addAction(UIAlertAction(title: "确定", style: .default, handler: { (action) in
@@ -171,59 +171,54 @@ class RegisterViewController: UIViewController {
         
         if userName != "" && password != "" && phone != "" && email != "" {
             //发送验证码
-            LCSMS.requestVerificationCode(mobilePhoneNumber: self.numberInputView.textField.text!, completion: { (request) in
-                
-                if request.isSuccess{
+            AVOSCloud.requestSmsCode(withPhoneNumber: self.numberInputView.textField.text!, callback: { (request, error) in
+                if request{
                     
-                }})
-            
-            present(alert, animated: true) {
-            }
-
+                }
+            })
+                present(alert, animated: true) {
+                }
         }else{
-            present(alert1, animated: true, completion: { 
+            present(alert1, animated: true, completion: {
                 
             })
         }
-       
         
         alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { (action) in
             let textfield = alert.textFields?.first
 
                     //检验验证码
-                    LCSMS.verifyMobilePhoneNumber(self.numberInputView.textField.text!, verificationCode: (textfield?.text!)!, completion: { (verify) in
-                        if verify.isSuccess{
-                            //注册用户
-                            user.signUp { (result) in
-                                if result.isSuccess{
-                                    ProgressHUD.showSuccess("注册成功")
-                                }else {
-                                    if result.error?.code == 125 {
-                                        ProgressHUD.showError("该邮箱不合法")
-                                    }
-                                    if result.error?.code == 202 {
-                                        ProgressHUD.showError("用户名已存在")
-                                    }else {
-                                        ProgressHUD.showError("该号码不合法或者已注册过")
-                                    }
-                                }
-                            }
-                            self.dismiss(animated: true, completion: {
-                            })
-                        }else if verify.isFailure{
-                            ProgressHUD.showError("验证码错误")
-                        }else {
-                            ProgressHUD.showError("系统繁忙，请稍后重试")
-                        }
-                    })
-            }))
-        
-        
-        
+//            AVOSCloud.requestSmsCode(withPhoneNumber: self.numberInputView.textField.text!, templateName: textfield?.text!, variables: , callback: { (verify, error) in
+            
+//                if verify{
+//                    //注册用户
+//                    user.signUp { (result) in
+//                        if result.isSuccess{
+//                            ProgressHUD.showSuccess("注册成功")
+//                        }else {
+//                            if result.error?.code == 125 {
+//                                ProgressHUD.showError("该邮箱不合法")
+//                            }
+//                            if result.error?.code == 202 {
+//                                ProgressHUD.showError("用户名已存在")
+//                            }else {
+//                                ProgressHUD.showError("该号码不合法或者已注册过")
+//                            }
+//                        }
+//                    }
+//                    self.dismiss(animated: true, completion: {
+//                    })
+//                }else if verify == false{
+//                    ProgressHUD.showError("验证码错误")
+//                }else {
+//                    ProgressHUD.showError("系统繁忙，请稍后重试")
+//                }
+//            })
+        }))
     }
 
     func close(sender:UIButton) {
-        self.dismiss(animated: true) { 
+        self.dismiss(animated: true) {
             
         }
     }

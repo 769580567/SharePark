@@ -9,7 +9,6 @@
 import UIKit
 import SnapKit
 import AVOSCloud
-import LeanCloud
 
 class RentOutViewController: UIViewController {
 
@@ -98,18 +97,6 @@ class RentOutViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(RentOutViewController.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(RentOutViewController.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
-//        let user = AVUser.current()
-//        user?.setObject(1, forKey: "carNumber")
-//        user?.saveInBackground({ (success: Bool, error: Error?) in
-//            print(success)
-//        })
-        
-        let user = LCUser.current
-        user?.set("carNumber", value: 1)
-        user?.save({ (result: LCBooleanResult) in
-            print(result.isSuccess)
-        })
         
     }
     

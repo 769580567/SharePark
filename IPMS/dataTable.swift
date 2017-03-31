@@ -12,34 +12,18 @@ import AVOSCloud
 class dataTable:NSObject {
     static func pushUserInBack(_ dict:NSDictionary,object:AVObject){
         
-        let object = AVObject(className:"Account")
-        object.setObject(dict["phoneNumber"], forKey: "phoneNumber")
-        object.setObject(dict["email"], forKey: "email")
-        object.setObject(dict["balance"], forKey: "balance")
-        object.setObject(dict["carNumber"], forKey: "carNumber")
-        
-        AVUser.current()
-        object.setObject(AVUser.current(), forKey: "user")
-        
+        let user = AVUser.current()
+        //let imageUrl = user?["avatarImage"] as! String
         
         let cover = dict["userCover"] as? UIImage
         let scaledImg = UIImage(data: UIImagePNGRepresentation(cover!)!)
         let coverFile = AVFile(data:UIImagePNGRepresentation(scaledImg!)!)
         coverFile.saveInBackground { (success, error) in
             if success{
-                object.setObject(coverFile, forKey: "cvoer")
-                object.saveEventually({ (success, error) -> Void in
-                    if success {
-                        /**
-                         *  调用通知
-                         */
-                        NotificationCenter.default.post(name: Notification.Name(rawValue: "pushBookNotification"), object: nil, userInfo: ["success":"true"])
-                    }else{
-                        NotificationCenter.default.post(name: Notification.Name(rawValue: "pushBookNotification"), object: nil, userInfo: ["success":"false"])
-                    }
-                })
+                user?.setObject(coverFile.url, forKey: "avatarImage")
+                user?.save()
             }else {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "pushCallBack"), object: nil, userInfo: ["success":"false"])
+                UpDataFailed()
             }
         }
     }
@@ -52,11 +36,26 @@ class dataTable:NSObject {
         carRecord.setObject(dict["wage"], forKey: "wage")
         //总消费
         carRecord.setObject(dict["cost"], forKey: "cost")
+        //类型，0为没有，1为出租中，2为租用中
+        carRecord.setObject(dict["type"], forKey: "type")
         carRecord.setObject(dict["beginDate"], forKey: "beginDate")
         carRecord.setObject(dict["endDate"], forKey: "endDate")
         
-        
-        
         carRecord.setObject(AVUser.current(), forKey: "user")
+        
+        carRecord.saveInBackground { (success, error) in
+            if success{
+                
+            }else {
+                UpDataFailed()
+            }
+        }
+    }
+    
+    static func UpDataFailed(){
+        let alert = UIAlertController(title: "提示", message: "上传数据失败", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { (action) in
+            
+        }))
     }
 }

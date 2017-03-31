@@ -23,17 +23,13 @@ class RecordViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.view.backgroundColor = UIColor(red: 255/255, green: 245/255, blue: 245/255, alpha: 1.0)
         self.automaticallyAdjustsScrollViewInsets = false
         //增添导航页按钮
-//        let leftitem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(RecordViewController.back(sender:)))
-//        leftitem.image = UIImage(named:"icon_back")
-//        self.navigationItem.leftBarButtonItem = leftitem
-//        let rightitem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(RecordViewController.clearAllRecord(sender:)))
-//        rightitem.image = UIImage(named:"icon_clean")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"icon_back"), style: .plain, target: self, action: #selector(RecordViewController.back(sender:)))
         self.navigationItem.rightBarButtonItem =  UIBarButtonItem(image: UIImage(named:"icon_clean"), style: .plain, target: self, action: #selector(RecordViewController.clearAllRecord(sender:)))
-//        self.navigationItem.rightBarButtonItem = rightitem
+
         
         //取消cell的线
         self.tableView.separatorStyle = .none
-        
+ 
         
        
     }
@@ -54,6 +50,7 @@ class RecordViewController: UIViewController,UITableViewDelegate,UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? recordView_Cell
 
+        cell?.isUserInteractionEnabled = false
         cell?.backgroundColor = UIColor(red: 255/255, green: 245/255, blue: 245/255, alpha: 0.5)
         cell?.coverImage.image = UIImage(named:"Avatar")
         cell?.typeLabel.text = "类型：租用"

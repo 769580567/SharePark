@@ -1,31 +1,28 @@
 PODS:
-  - Alamofire (4.2.0)
   - AVOSCloud (4.2.0)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - JVFloatLabeledTextField (1.1.1)
-  - LeanCloud (10.0.0):
-    - LeanCloud/Storage (= 10.0.0)
-  - LeanCloud/Storage (10.0.0):
-    - Alamofire (~> 4.2.0)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
   - SnapKit (3.2.0)
 
 DEPENDENCIES:
   - AVOSCloud
   - FMDB
   - JVFloatLabeledTextField
-  - LeanCloud
+  - SDWebImage
   - SnapKit
 
 SPEC CHECKSUMS:
-  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
   AVOSCloud: 5446ad0320f4942cce1a036d131992cd1115db99
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   JVFloatLabeledTextField: 0e5524b097f102036214dd8279edc8ecf08b5e18
-  LeanCloud: 0a6a0d52e33dd43d998ab256cc83f6c4954607b8
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
 
-PODFILE CHECKSUM: bcae542a038e8fab845f7baf84af5fe73953f45b
+PODFILE CHECKSUM: 2321df81869c5459f9a37630f2a2ce28928a4b35
 
 COCOAPODS: 1.2.0

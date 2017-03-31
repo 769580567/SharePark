@@ -46,12 +46,8 @@ class ChangeInformationViewController: UIViewController {
         
         self.automaticallyAdjustsScrollViewInsets = false
         
-        let leftitem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(ChangeInformationViewController.back(sender:)))
-        leftitem.image = UIImage(named:"icon_back")
-        self.navigationItem.leftBarButtonItem = leftitem
-        let rightitem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(ChangeInformationViewController.save(sender:)))
-        rightitem.image = UIImage(named:"icon_save")
-        self.navigationItem.rightBarButtonItem = rightitem
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"icon_back"), style: .plain, target: self, action: #selector(ChangeInformationViewController.back(sender:)))
+        self.navigationItem.rightBarButtonItem =  UIBarButtonItem(image: UIImage(named:"icon_save"), style: .plain, target: self, action: #selector(ChangeInformationViewController.save(sender:)))
         
 
 

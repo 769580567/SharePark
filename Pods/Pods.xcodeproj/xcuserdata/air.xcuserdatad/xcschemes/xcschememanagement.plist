@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Alamofire.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>FMDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -24,12 +19,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>LeanCloud.xcscheme</key>
+		<key>Pods-IPMS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-IPMS.xcscheme</key>
+		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -42,11 +37,6 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0D38A2F14AC051641A92E21D3E90EDA5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>251BAD17812F7EBF6532EACF66F941C3</key>
 		<dict>
 			<key>primary</key>
@@ -62,17 +52,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3E01143F3C6C5F4C651109AE4A7F4DAA</key>
+		<key>3AC786D5E586C54D8E473831558D9335</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
+		<key>78C5DDE8E5C25F0A6F2F153B0F8545DB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A670E83EB2BFD45686F633525759476B</key>
+		<key>FDD9CB8269F5B4F3CBB95CD05F3B0B70</key>
 		<dict>
 			<key>primary</key>
 			<true/>
