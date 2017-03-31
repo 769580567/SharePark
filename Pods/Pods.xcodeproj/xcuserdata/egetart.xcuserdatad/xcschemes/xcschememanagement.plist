@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AVOSCloud.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -29,6 +34,11 @@
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
 		<key>SnapKit.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -42,12 +52,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>288A6E512ABA7B290C198795E7118F53</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2A4448146C785C426971111F117D773C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3AC786D5E586C54D8E473831558D9335</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3E01143F3C6C5F4C651109AE4A7F4DAA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>78C5DDE8E5C25F0A6F2F153B0F8545DB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -63,6 +88,11 @@
 			<true/>
 		</dict>
 		<key>DFF08ACC2748A6A377A81E3CF0E9844B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FDD9CB8269F5B4F3CBB95CD05F3B0B70</key>
 		<dict>
 			<key>primary</key>
 			<true/>
